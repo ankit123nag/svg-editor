@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "homepage": "./",
   "scripts": {
     "build": "webpack build --config webpack.config.js --stats-children",
     "serve": "webpack serve --config webpack.config.js"
