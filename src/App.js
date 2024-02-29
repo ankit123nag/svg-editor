@@ -25,7 +25,7 @@ const App = () => {
   };
 
   return (
-    <div className="dark:bg-slate-800 dark:text-slate-100 p-5">
+    <div className="dark:bg-slate-800 dark:text-slate-100 p-2">
       <button
         className="flex flex-col border rounded-lg p-5"
         onClick={handleThemeSwitch}

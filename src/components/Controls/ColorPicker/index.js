@@ -52,10 +52,10 @@ const ColorPicker = (props) => {
   };
 
   return (
-    <div className="grid grid-rows-2 gap-4 grid-flow-row row-span-3">
+    <div className="">
+    <label>Colour Theme</label>
       {selectedColor &&
-      <div className="bg-opacity-50 row-span-2">
-        <label>Colour Theme</label>
+      <div className="bg-opacity-50">
         <SketchPicker
           className='text-black'
           color={selectedColor}
@@ -64,11 +64,11 @@ const ColorPicker = (props) => {
         />
       </div>
       }
-      <div className="grid grid-cols-4 gap-4 grid-flow-row row-span-1">
+      <div className="grid grid-cols-4 gap-4 grid-flow-row">
         {colorList.map((color, index) => (
           <div
             key={index}
-            className="w-12 h-12 rounded-md shadow-md cursor-pointer"
+            className="w-10 h-12 rounded-md shadow-md cursor-pointer"
             style={{ backgroundColor: color }}
             onClick={() => setSelectedColor(color)}
           />
