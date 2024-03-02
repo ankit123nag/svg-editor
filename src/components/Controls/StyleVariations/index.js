@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { formatHex } from 'culori';
 
 const StyleVariations = props => {
     const { doc, updateSVGImage } = props;
@@ -9,18 +10,19 @@ const StyleVariations = props => {
         gradients.forEach((gradient) => {
             const stops = gradient.querySelectorAll('stop');
             const stopColor = stops[1]?.getAttribute('stop-color') || stops[0]?.getAttribute('stop-color'); // Use the first stop color as the fill color
+            const convertedHexColor = stopColor ? formatHex(stopColor) : '';
             const elements = doc.querySelectorAll(`[fill='url(#${gradient.id})'], [stroke='url(#${gradient.id})']`);
             elements.forEach((element) => {
-                element.setAttribute('fill', stopColor);
+                element.setAttribute('fill', convertedHexColor);
                 element.removeAttribute('stroke');
             });
             gradient.remove();
         });
         const paths = doc.querySelectorAll('path');
         paths.forEach(path => {
-            const originalFill = path.getAttribute('fill') === 'white' ? '#ffffff' : path.getAttribute('fill') || '';
-            const originalStroke = path.getAttribute('stroke') || '';
-            const originalStrokeWidth = path.getAttribute('stroke-width') === 'black' ? '#000000' : path.getAttribute('strokeWidth') || '';
+            const originalFill = path.getAttribute('fill') ? formatHex(path.getAttribute('fill')) : '';
+            const originalStroke = path.getAttribute('stroke') ? formatHex(path.getAttribute('stroke')) : '';
+            const originalStrokeWidth = path.getAttribute('stroke-width') || '';
 
             path.setAttribute('data-original-fill', originalFill);
             path.setAttribute('data-original-stroke', originalStroke);

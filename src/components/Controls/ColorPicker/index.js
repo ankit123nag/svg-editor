@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { colorsToIgnore } from '../../../utils/ColorUtil';
 import { SketchPicker } from 'react-color';
+import { formatHex, differenceEuclidean, converter } from 'culori';
 
 const ColorPicker = (props) => {
   const { doc, updateSVGImage } = props;
@@ -36,33 +37,47 @@ const ColorPicker = (props) => {
     };
   }, [selectedColor]);
 
-  const handleColorChange = (color) => {
-    setSelectedColor(color.hex);
+  const handleColorChange = (updatedColor) => {
+    const toLCH = converter("lch");
+    const lchSelectedColor = toLCH(selectedColor);
+    const lchUpdatedColor = toLCH(updatedColor.hex);
+    const variance = differenceEuclidean("lch")(lchSelectedColor, lchUpdatedColor);
     const pathElements = doc.querySelectorAll('path');
     pathElements.forEach((path) => {
       const currentFill = path.getAttribute('fill');
-      if (!colorsToIgnore(currentFill)) {
-        path.setAttribute('data-original-fill', color.hex);
-        path.setAttribute('fill', color.hex);
-        path.setAttribute('stroke', '#000');
-        path.setAttribute('stroke-width', '0.5px');
+      if (currentFill && !colorsToIgnore(currentFill)) {
+        const lchColor = toLCH(currentFill);
+        const newColor = createNewColor(lchColor, variance);
+        path.setAttribute('data-original-fill', formatHex(newColor));
+        path.setAttribute('fill', formatHex(newColor));
       }
     });
     updateSVGImage(doc);
+    setSelectedColor(updatedColor.hex);
   };
+
+  const adjustHue = (val) => {
+    if (val < 0) val += Math.ceil(-val / 360) * 360;
+    return val % 360;
+  }
+
+  const createNewColor = (baseColor, variance) => {
+    const newHue = adjustHue(baseColor.h + variance);
+    return { ...baseColor, h: newHue };
+  }
 
   return (
     <div className="">
-    <label>Colour Theme</label>
+      <label>Colour Theme</label>
       {selectedColor &&
-      <div className="bg-opacity-50">
-        <SketchPicker
-          className='text-black'
-          color={selectedColor}
-          onChange={(color) => handleColorChange(color)}
-          presetColors={colorList}
-        />
-      </div>
+        <div className="bg-opacity-50">
+          <SketchPicker
+            className='text-black'
+            color={selectedColor}
+            onChange={(color) => handleColorChange(color)}
+            presetColors={colorList}
+          />
+        </div>
       }
       <div className="grid grid-cols-4 gap-4 grid-flow-row">
         {colorList.map((color, index) => (
