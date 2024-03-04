@@ -15,10 +15,11 @@ const ColorPicker = (props) => {
     const pathElements = doc.querySelectorAll('path');
     pathElements.forEach((path) => {
       const originalFill = path.dataset.originalFill;
+      const currentFill = path.getAttribute('fill');
       if (updatedColor.h < 1) {
         path.setAttribute('fill', originalFill);
         path.setAttribute('data-updated-fill', originalFill);
-      } else if (originalFill && !colorsToIgnore(originalFill)) {
+      } else if (currentFill && !colorsToIgnore(currentFill)) {
         const hsvColor = toHSV(originalFill);
         const newColor = createNewColor(hsvColor, updatedColor);
         path.setAttribute('data-updated-fill', formatHex(newColor));
