@@ -15,7 +15,7 @@ const ColorPicker = (props) => {
     const pathElements = doc.querySelectorAll('path');
     pathElements.forEach((path) => {
       const originalFill = path.dataset.originalFill;
-      if (updatedColor.h < 1 || updatedColor.h === 360) {
+      if (updatedColor.h < 1) {
         path.setAttribute('fill', originalFill);
         path.setAttribute('data-updated-fill', originalFill);
       } else if (originalFill && !colorsToIgnore(originalFill)) {
