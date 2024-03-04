@@ -5,23 +5,28 @@ import { formatHex, converter } from 'culori';
 
 const ColorPicker = (props) => {
   const { doc, updateSVGImage } = props;
-  const [selectedColor, setSelectedColor] = useState('');
+  const [selectedColor, setSelectedColor] = useState('#FF0000');
 
-  const handleColorChange = (updatedColor) => {
-    const toLCH = converter('lch');
-    const lchUpdatedColor = toLCH(updatedColor.hex);
+  const handleColorChange = (color) => {
+    const toHSV = converter('hsv');
+    let roundedHue = Math.round(color.hsv.h / 30) * 30;
+    roundedHue = roundedHue === 360 ? 350 : roundedHue;
+    const updatedColor = { ...color.hsv, h: roundedHue, mode: 'hsv' };
     const pathElements = doc.querySelectorAll('path');
     pathElements.forEach((path) => {
-      const currentFill = path.getAttribute('fill');
-      if (currentFill && !colorsToIgnore(currentFill)) {
-        const lchColor = toLCH(currentFill);
-        const newColor = createNewColor(lchColor, lchUpdatedColor);
-        path.setAttribute('data-original-fill', formatHex(newColor));
+      const originalFill = path.dataset.originalFill;
+      if (updatedColor.h < 1 || updatedColor.h === 360) {
+        path.setAttribute('fill', originalFill);
+        path.setAttribute('data-updated-fill', originalFill);
+      } else if (originalFill && !colorsToIgnore(originalFill)) {
+        const hsvColor = toHSV(originalFill);
+        const newColor = createNewColor(hsvColor, updatedColor);
+        path.setAttribute('data-updated-fill', formatHex(newColor));
         path.setAttribute('fill', formatHex(newColor));
       }
     });
     updateSVGImage(doc);
-    setSelectedColor(updatedColor.hex);
+    setSelectedColor(formatHex(updatedColor));
   };
 
   const adjustHue = (val) => {
@@ -29,8 +34,8 @@ const ColorPicker = (props) => {
     return val % 360;
   }
 
-  const createNewColor = (baseColor, lchUpdatedColor) => {
-    const newHue = adjustHue(baseColor.h + lchUpdatedColor.h);
+  const createNewColor = (baseColor, hsvUpdatedColor) => {
+    const newHue = adjustHue(baseColor.h + hsvUpdatedColor.h);
     return { ...baseColor, h: newHue };
   }
 
@@ -40,8 +45,9 @@ const ColorPicker = (props) => {
       <div className='mt-5'>
         <HuePicker
           color={selectedColor}
-          onChange={(color) => handleColorChange(color)}
+          onChange={handleColorChange}
           width='100%'
+          step={2}
         />
       </div>
     </div>

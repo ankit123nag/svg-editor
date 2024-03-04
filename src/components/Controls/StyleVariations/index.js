@@ -3,7 +3,7 @@ import { formatHex } from 'culori';
 
 const StyleVariations = props => {
     const { doc, updateSVGImage } = props;
-    const [styleVariations, setStyleVariations] = useState(1);
+    const [styleVariations, setStyleVariations] = useState(2);
 
     useEffect(() => {
         const gradients = doc.querySelectorAll('linearGradient, radialGradient');
@@ -27,6 +27,9 @@ const StyleVariations = props => {
             path.setAttribute('data-original-fill', originalFill);
             path.setAttribute('data-original-stroke', originalStroke);
             path.setAttribute('data-original-stroke-width', originalStrokeWidth);
+            path.setAttribute('data-updated-fill', originalFill);
+            path.setAttribute('data-updated-stroke', originalStroke);
+            path.setAttribute('data-updated-stroke-width', originalStrokeWidth);
         })
         updateSVGImage(doc);
     }, [])
@@ -35,17 +38,19 @@ const StyleVariations = props => {
         const newValue = +e.target.value;
         const pathElements = doc.querySelectorAll('path');
         pathElements.forEach((path) => {
-            const originalFill = path.dataset.originalFill;
-            const originalStroke = path.dataset.originalStroke;
-            const originalStrokeWidth = path.dataset.originalStrokeWidth;
-            if (newValue === 2) {
-                path.setAttribute('fill', originalFill || '');
-                path.setAttribute('stroke', originalStroke || '#000000');
-                path.setAttribute('stroke-width', originalStrokeWidth || '0.5px');
-            } else if (newValue === 1) {
-                path.setAttribute('fill', originalFill || '');
-                path.setAttribute('stroke', originalStroke || '');
-                path.setAttribute('stroke-width', originalStrokeWidth || '');
+            const updatedFill = path.dataset.updatedFill;
+            const updatedStroke = path.dataset.updatedStroke;
+            const updatedStrokeWidth = path.dataset.updatedStrokeWidth;
+            if (newValue === 3) {
+                path.setAttribute('fill', updatedFill || '');
+                path.setAttribute('stroke', updatedStroke || '#000000');
+                path.setAttribute('stroke-width', updatedStrokeWidth || '0.5px');
+            } else if (newValue === 2) {
+                path.setAttribute('fill', updatedFill || '');
+                path.setAttribute('stroke', updatedStroke || '');
+                path.setAttribute('stroke-width', updatedStrokeWidth || '');
+            } else if(newValue === 1) {
+                console.log('minimal');
             } else {
                 path.setAttribute('fill', '#ffffff');
                 path.setAttribute('stroke', '#000000');
@@ -58,7 +63,7 @@ const StyleVariations = props => {
 
     return (<>
         <label htmlFor='styleVariations'>Style Variations</label>
-        <input type='range' id='styleVariations' value={styleVariations} min={0} max={2}
+        <input type='range' id='styleVariations' value={styleVariations} min={0} max={3}
             onChange={handleStyleVariationChange} />
     </>);
 }
