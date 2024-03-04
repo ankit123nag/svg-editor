@@ -5,14 +5,14 @@ import ColorPicker from './ColorPicker';
 
 const Controls = ({ doc, updateSVGImage }) => {
   return (
-    <div className="grid sm:grid-rows-12 items-center h-screen">
-      <div className="flex flex-col border rounded-lg p-5 sm:row-span-2">
+    <div className='grid items-center gap-10'>
+      <div className='flex flex-col border rounded-lg p-5'>
         <DetailLevel doc={doc} updateSVGImage={updateSVGImage} />
       </div>
-      <div className="flex flex-col border rounded-lg p-5 sm:row-span-2">
+      <div className='flex flex-col border rounded-lg p-5'>
         <StyleVariations doc={doc} updateSVGImage={updateSVGImage} />
       </div>
-      <div className=' sm:row-span-8'>
+      <div className='flex flex-col border rounded-lg p-5'>
         <ColorPicker doc={doc} updateSVGImage={updateSVGImage} />
       </div>
     </div>

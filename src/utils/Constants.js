@@ -90,5 +90,6 @@ export const COLORS_TO_IGNORE = [
     '#FF9E7B',
     '#EAB8B0',
     '#AD3C2F',
+    '#E29086',
     '#944138'
 ];

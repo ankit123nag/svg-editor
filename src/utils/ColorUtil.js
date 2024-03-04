@@ -1,4 +1,4 @@
-const { COLORS_TO_IGNORE } = require("./Constants");
+const { COLORS_TO_IGNORE } = require('./Constants');
 
 // Function to check is it's Black Color or White or skin/hair color
 const colorsToIgnore = (color) => {

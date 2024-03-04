@@ -23,10 +23,10 @@ const DetailLevel = (props) => {
 
   return (
     <>
-      <label htmlFor="detailLevel">Detail Level</label>
+      <label htmlFor='detailLevel'>Detail Level</label>
       <input
-        type="range"
-        id="detailLevel"
+        type='range'
+        id='detailLevel'
         value={detailLevel}
         min={1}
         max={5}
