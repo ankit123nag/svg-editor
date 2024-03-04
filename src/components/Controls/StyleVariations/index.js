@@ -3,7 +3,7 @@ import { formatHex } from 'culori';
 
 const StyleVariations = props => {
     const { doc, updateSVGImage } = props;
-    const [styleVariations, setStyleVariations] = useState(2);
+    const [styleVariations, setStyleVariations] = useState(1);
 
     useEffect(() => {
         const gradients = doc.querySelectorAll('linearGradient, radialGradient');
@@ -47,10 +47,12 @@ const StyleVariations = props => {
                 path.setAttribute('stroke-width', updatedStrokeWidth || '0.5px');
             } else if (newValue === 2) {
                 path.setAttribute('fill', updatedFill || '');
-                path.setAttribute('stroke', updatedStroke || '');
+                path.setAttribute('stroke', updatedFill || '');
                 path.setAttribute('stroke-width', updatedStrokeWidth || '');
             } else if(newValue === 1) {
-                console.log('minimal');
+                path.setAttribute('fill', updatedFill || '');
+                path.setAttribute('stroke', updatedFill || '');
+                path.setAttribute('stroke-width', '0px');
             } else {
                 path.setAttribute('fill', '#ffffff');
                 path.setAttribute('stroke', '#000000');
