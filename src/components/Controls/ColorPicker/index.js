@@ -12,7 +12,7 @@ const ColorPicker = (props) => {
     let roundedHue = Math.round(color.hsv.h / 30) * 30;
     roundedHue = roundedHue === 360 ? 350 : roundedHue;
     const updatedColor = { ...color.hsv, h: roundedHue, mode: 'hsv' };
-    const pathElements = doc.querySelectorAll('use');
+    const pathElements = doc.querySelectorAll('path');
     pathElements.forEach((path) => {
       const originalFill = path.dataset.originalFill;
       const currentFill = path.getAttribute('fill');
