@@ -18,7 +18,7 @@ const StyleVariations = props => {
             });
             gradient.remove();
         });
-        const paths = doc.querySelectorAll('path');
+        const paths = doc.querySelectorAll('use');
         paths.forEach(path => {
             const originalFill = path.getAttribute('fill') ? formatHex(path.getAttribute('fill')) : '';
             const originalStroke = path.getAttribute('stroke') ? formatHex(path.getAttribute('stroke')) : '';

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import svgImg from '../../../assests/img.svg';
+import svgImg from '../../../assests/img-1.svg';
 import SVGContainer from '../../components/SVGContainer';
 import Controls from '../../components/Controls';
 
