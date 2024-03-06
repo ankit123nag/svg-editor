@@ -3,7 +3,7 @@ import { formatHex } from 'culori';
 
 const StyleVariations = props => {
     const { doc, updateSVGImage } = props;
-    const [styleVariations, setStyleVariations] = useState(1);
+    const [styleVariations, setStyleVariations] = useState(2);
 
     useEffect(() => {
         const gradients = doc.querySelectorAll('linearGradient, radialGradient');
@@ -36,6 +36,10 @@ const StyleVariations = props => {
 
     const handleStyleVariationChange = (e) => {
         const newValue = +e.target.value;
+        const minimalDetailedElements = doc.querySelectorAll('g[id*=\'-mdetail\']');
+        minimalDetailedElements.forEach((element) => {
+            element.removeAttribute('display');
+        });
         const pathElements = doc.querySelectorAll('path');
         pathElements.forEach((path) => {
             const updatedFill = path.dataset.updatedFill;
@@ -47,12 +51,15 @@ const StyleVariations = props => {
                 path.setAttribute('stroke-width', updatedStrokeWidth || '0.5px');
             } else if (newValue === 2) {
                 path.setAttribute('fill', updatedFill || '');
-                path.setAttribute('stroke', updatedFill || '');
+                path.setAttribute('stroke', updatedStroke || '');
                 path.setAttribute('stroke-width', updatedStrokeWidth || '');
-            } else if(newValue === 1) {
+            } else if (newValue === 1) {
                 path.setAttribute('fill', updatedFill || '');
-                path.setAttribute('stroke', updatedFill || '');
-                path.setAttribute('stroke-width', '0px');
+                path.setAttribute('stroke', updatedStroke || '');
+                path.setAttribute('stroke-width', updatedStrokeWidth || '');
+                minimalDetailedElements.forEach((element) => {
+                    element.setAttribute('display', 'none');
+                });
             } else {
                 path.setAttribute('fill', '#ffffff');
                 path.setAttribute('stroke', '#000000');
