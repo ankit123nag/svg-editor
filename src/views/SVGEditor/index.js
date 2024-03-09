@@ -12,6 +12,8 @@ const SVGEditor = () => {
   useEffect(() => {
     const parser = new DOMParser();
     const doc = parser.parseFromString(svgContent, 'image/svg+xml');
+    doc.documentElement.setAttribute('width', '1280');
+    doc.documentElement.setAttribute('height', '650');
     setDoc(doc);
   }, []);
 
@@ -25,7 +27,7 @@ const SVGEditor = () => {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'updatedSvg.svg';
+    a.download = 'quick_design.svg';
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);

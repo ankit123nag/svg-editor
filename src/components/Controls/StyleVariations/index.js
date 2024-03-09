@@ -18,8 +18,8 @@ const StyleVariations = props => {
             });
             gradient.remove();
         });
-        const paths = doc.querySelectorAll('path');
-        paths.forEach(path => {
+        const paths = doc.querySelectorAll('rect, circle, ellipse, line, polyline, polygon, path');
+        paths && paths.length && paths.forEach(path => {
             const originalFill = path.getAttribute('fill') ? formatHex(path.getAttribute('fill')) : '';
             const originalStroke = path.getAttribute('stroke') ? formatHex(path.getAttribute('stroke')) : '';
             const originalStrokeWidth = path.getAttribute('stroke-width') || '';
@@ -40,7 +40,7 @@ const StyleVariations = props => {
         minimalDetailedElements.forEach((element) => {
             element.removeAttribute('display');
         });
-        const pathElements = doc.querySelectorAll('path');
+        const pathElements = doc.querySelectorAll('rect, circle, ellipse, line, polyline, polygon, path');
         pathElements.forEach((path) => {
             const updatedFill = path.dataset.updatedFill;
             const updatedStroke = path.dataset.updatedStroke;
@@ -48,7 +48,7 @@ const StyleVariations = props => {
             if (newValue === 3) {
                 path.setAttribute('fill', updatedFill || '');
                 path.setAttribute('stroke', updatedStroke || '#000000');
-                path.setAttribute('stroke-width', updatedStrokeWidth || '0.5px');
+                path.setAttribute('stroke-width', '0.5px');
             } else if (newValue === 2) {
                 path.setAttribute('fill', updatedFill || '');
                 path.setAttribute('stroke', updatedStroke || '');
