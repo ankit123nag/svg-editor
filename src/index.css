@@ -1,3 +1,71 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+.moving-man {
+    animation: moving-man 10s linear infinite;
+}
+
+@keyframes moving-man {
+    0% {
+        transform: translateX(0);
+        /* transform: translateX(-700px); */
+    }
+
+    100% {
+        transform: translateX(-700px);
+    }
+}
+
+/* Left leg */
+#path4544 {
+    animation: leg 1.5s linear infinite;
+    transform-origin: 45%;
+}
+
+/* Right leg */
+#path4578 {
+    animation: leg 1.5s linear infinite;
+    transform-origin: 45%;
+    animation-delay: 1s;
+}
+
+/* Left leg */
+#path4542 {
+    animation: leg 1.5s linear infinite;
+    transform-origin: 50%;
+}
+
+/* Right leg */
+#path4580 {
+    animation: leg 1.5s linear infinite;
+    transform-origin: 50%;
+    animation-delay: 1s;
+}
+
+/* Left leg */
+#g4540 {
+    animation: leg 1.5s linear infinite;
+    transform-origin: 50%;
+}
+
+/* Right leg */
+#g4576 {
+    animation: leg 1.5s linear infinite;
+    transform-origin: 50%;
+    animation-delay: 1s;
+}
+
+@keyframes leg {
+    0% {
+        transform: rotate(0deg) translateX(0);
+    }
+
+    50% {
+        transform: rotate(5deg) translateX(10px);
+    }
+
+    100% {
+        transform: rotate(0deg) translateX(0);
+    }
+}
