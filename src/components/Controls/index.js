@@ -2,7 +2,6 @@ import React from 'react';
 import DetailLevel from './DetailLevel';
 import StyleVariations from './StyleVariations';
 import ColorPicker from './ColorPicker';
-import AnimateObject from './AnimateObject';
 
 const Controls = ({ doc, updateSVGImage }) => {
   return (
@@ -15,9 +14,6 @@ const Controls = ({ doc, updateSVGImage }) => {
       </div>
       <div className='flex flex-col border rounded-lg p-5'>
         <ColorPicker doc={doc} updateSVGImage={updateSVGImage} />
-      </div>
-      <div className='flex flex-col border rounded-lg p-5'>
-        <AnimateObject doc={doc} updateSVGImage={updateSVGImage} />
       </div>
     </div>
   );
