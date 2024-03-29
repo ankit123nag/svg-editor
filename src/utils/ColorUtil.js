@@ -8,7 +8,6 @@ const colorsToIgnore = (color) => {
   return hasColor && hasColor.length;
 };
 
-
 module.exports = {
   colorsToIgnore
 };
