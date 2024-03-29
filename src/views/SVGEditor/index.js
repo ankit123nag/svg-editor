@@ -35,11 +35,11 @@ const SVGEditor = () => {
   };
 
   return (
-    <div className='grid gap-8 sm:grid-cols-12'>
+    doc && <div className='grid gap-8 sm:grid-cols-12'>
       <div className='col-span-2 p-5'>
         <button className='flex flex-col border rounded-lg p-5 mb-10'
           onClick={handleDownload}>Download Updated SVG</button>
-        {doc && <Controls doc={doc} updateSVGImage={updateSVGImage} />}
+        <Controls doc={doc} updateSVGImage={updateSVGImage} />
       </div>
       <div className='col-span-10 p-5'>
         <SVGContainer svgContent={svgContent} svgRef={svgRef} />
