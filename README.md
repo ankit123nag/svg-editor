@@ -8,15 +8,14 @@ You can see the live demo of the SVG Editor [here](https://svg-editor-inky.verce
 
 ## Features
 
-- Upload and edit SVG files effortlessly.
 - Modify SVG paths and colors interactively.
 - Apply various theme changes using a versatile library.
-- Responsive design for optimal use on any device.
+- Download updated SVG
 
 ## Technologies Used
 
 - React
-- A library for handling SVG modifications (details can be added here)
+- A library for handling Color theme [culori](https://www.npmjs.com/package/culori)
 - HTML5, CSS3
 - JavaScript (ES6+)
 
@@ -48,10 +47,9 @@ To run the SVG Editor locally, follow these steps:
 
 ## Usage
 
-1. Upload an SVG file using the upload button.
-2. Select any element within the SVG to modify its properties such as paths and colors.
-3. Explore different theme changes using the provided library options.
-4. Export your edited SVG file when finished.
+1. Explore different theme changes using the provided library options.
+2. Add/Remove Details (Variations)
+3. Export your edited SVG file when finished.
 
 ## Contributing
 
@@ -63,4 +61,3 @@ Contributions are welcome! If you'd like to contribute, please fork the reposito
 - [React](https://reactjs.org/)
 - The library used for SVG modifications (details can be added here)
 - Inspiration from various SVG manipulation tools.
-```
